@@ -28,7 +28,6 @@ public class Venta {
             System.out.println("[4] Salir");
             opcion = recibirOpcion(4);
             elegirOpcion(opcion);
-
         }
     }
 
@@ -41,7 +40,8 @@ public class Venta {
             opcion= tratarRecibirNro(nroOpciones);
         }
         catch (InputMismatchException ime){
-            System.out.println(ime+"Elige denuevo");
+            System.out.println("Entrada no valida, presione una tecla.");
+            esperar();
             opcion=recibirOpcion(nroOpciones);
         }
         return opcion;
@@ -60,9 +60,17 @@ public class Venta {
         boolean flag=false;
         if (opcion>0 && opcion<=nroOpciones){
             flag=true;
-            System.out.println("bien validado, opcion:"+opcion);
+            //System.out.println("bien validado, opcion:"+opcion);
+        }
+        if (opcion<=0||opcion>nroOpciones){
+            System.out.println("Opcion no valida!");
+            esperar();
         }
         return flag;
+    }
+    public static void esperar(){
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
     }
 
 
@@ -86,11 +94,16 @@ public class Venta {
 
 
     public static void desplegarlistado(){
-        String[] partes=new String[3];
-        System.out.println("Pedido\tTipo\tTalla\tEstampado");
-        for (int i =0; i<pedidos.size();i++){
-            partes= pedidos.get(i).split(",");
-            System.out.println((i+1)+"\t"+partes[0]+"\t"+partes[1]+"\t"+partes[2]);
+        if(pedidos.size()!=0) {
+            String[] partes = new String[3];
+            System.out.println("Pedido\tTipo\t\tTalla\tEstampado");
+            for (int i = 0; i < pedidos.size(); i++) {
+                partes = pedidos.get(i).split(",");
+                System.out.println((i + 1) + "\t\t" + partes[0] + "\t\t" + partes[1] + "\t\t" + partes[2]);
+            }
+        }
+        else{
+            System.out.println("No hay elementos!");
         }
     }
 
@@ -138,10 +151,12 @@ public class Venta {
         }
         catch (java.lang.IndexOutOfBoundsException aioe){
             System.out.println("No existe ese elemento!");
+            esperar();
             eliminarPedido();
         }
         catch (InputMismatchException ime){
             System.out.println("Debes ingresar numeros!");
+            esperar();
             eliminarPedido();
         }
 
