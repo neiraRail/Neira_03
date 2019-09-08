@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -40,20 +38,26 @@ public class Venta {
             opcion= tratarRecibirNro(nroOpciones);
         }
         catch (InputMismatchException ime){
-            System.out.println("Entrada no valida, presione una tecla.");
-            esperar();
+            System.out.println("Debe ingresar un numero!");
+
             opcion=recibirOpcion(nroOpciones);
         }
         return opcion;
     }
+
+    /**
+     *
+     * @param nroOpciones
+     * @return
+     */
     public static int tratarRecibirNro(int nroOpciones){
         Scanner scan = new Scanner(System.in);
 
-        int opcion=0;
-        while(!validarOpcion(opcion,nroOpciones)) {
+        int opcion;
+        do{
             opcion = scan.nextInt();
-
         }
+        while(!validarOpcion(opcion,nroOpciones));
         return opcion;
     }
     public static boolean validarOpcion(int opcion,int nroOpciones){
@@ -64,14 +68,11 @@ public class Venta {
         }
         if (opcion<=0||opcion>nroOpciones){
             System.out.println("Opcion no valida!");
-            esperar();
+
         }
         return flag;
     }
-    public static void esperar(){
-        Scanner scan = new Scanner(System.in);
-        int n = scan.nextInt();
-    }
+
 
 
     private static void elegirOpcion(int tecla) {
@@ -149,26 +150,26 @@ public class Venta {
         try{
             tratarEliminar();
         }
-        catch (java.lang.IndexOutOfBoundsException aioe){
+        catch (java.lang.IndexOutOfBoundsException iobe){
             System.out.println("No existe ese elemento!");
-            esperar();
+
             eliminarPedido();
         }
         catch (InputMismatchException ime){
             System.out.println("Debes ingresar numeros!");
-            esperar();
+
             eliminarPedido();
         }
 
     }
-    public static void tratarEliminar(){
+    public static void tratarEliminar()throws InputMismatchException, IndexOutOfBoundsException{
         if(pedidos.size()!=0) {
             int eliminando = elegirEliminar();
             pedidos.remove(eliminando - 1);
         }
         else{System.out.println("No hay pedidos!");}
     }
-    public static int elegirEliminar(){
+    public static int elegirEliminar()throws InputMismatchException{
         int elegido;
         Scanner scan = new Scanner(System.in);
         desplegarlistado();
