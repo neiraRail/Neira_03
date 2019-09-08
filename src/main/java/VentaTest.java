@@ -5,15 +5,6 @@ import static org.junit.Assert.*;
 
 public class VentaTest {
 
-    @Before
-    public void setUp() throws Exception {
-    }
-
-
-    @Test
-    public void tratarRecibirNro() {
-    }
-
     @Test
     public void validarOpcionTestFalse() {
         int opcion=10;
@@ -27,18 +18,5 @@ public class VentaTest {
         int nroOpciones=3;
         boolean flag=Venta.validarOpcion(opcion,nroOpciones);
         assertTrue(flag);
-    }
-
-    @Test
-    public void eliminarPedido() {
-
-    }
-
-    @Test
-    public void tratarEliminar() {
-    }
-
-    @Test
-    public void elegirEliminar() {
     }
 }

@@ -13,7 +13,9 @@ public class Venta {
     }
 
 
-
+    /**
+     * Desplega el menu principal y llama a elegirOpcion()
+     */
     public static void desplegarMenuPrincipal(){
 
         int opcion=1;
@@ -30,7 +32,11 @@ public class Venta {
     }
 
 
-
+    /**
+     * Intenta recibir una opcion numerica y captura una excpecion
+     * @param nroOpciones cantidad de opciones en el menú
+     * @return el numero de la opcion elegida
+     */
     public static int recibirOpcion(int nroOpciones){
         int opcion;
 
@@ -46,9 +52,9 @@ public class Venta {
     }
 
     /**
-     *
-     * @param nroOpciones
-     * @return
+     *Recibe un numero y lo valida dentro de un rango
+     * @param nroOpciones rango de opciones para validar
+     * @return opcion elegida
      */
     public static int tratarRecibirNro(int nroOpciones){
         Scanner scan = new Scanner(System.in);
@@ -60,6 +66,13 @@ public class Venta {
         while(!validarOpcion(opcion,nroOpciones));
         return opcion;
     }
+
+    /**
+     * Valida que un numero este dentro de un rango
+     * @param opcion el numero para validar
+     * @param nroOpciones tope superior del rango
+     * @return True si el numero está dentro del rango
+     */
     public static boolean validarOpcion(int opcion,int nroOpciones){
         boolean flag=false;
         if (opcion>0 && opcion<=nroOpciones){
@@ -74,26 +87,31 @@ public class Venta {
     }
 
 
-
-    private static void elegirOpcion(int tecla) {
-        if (tecla==1){
+    /**
+     * Llama a la funcion elegida en el menu
+     * @param opcion opcion elegida
+     */
+    private static void elegirOpcion(int opcion) {
+        if (opcion==1){
             //System.out.println("mostrar");
             desplegarlistado();
         }
-        if (tecla==2){
+        if (opcion==2){
             //System.out.println("hacer");
             hacerPedido();
         }
-        if (tecla==3){
+        if (opcion==3){
             //System.out.println("eliminar");
             eliminarPedido();
         }
-        if (tecla==4){
+        if (opcion==4){
             System.out.println("Salir");
         }
     }
 
-
+    /**
+     * Muestra todos los pedidos
+     */
     public static void desplegarlistado(){
         if(pedidos.size()!=0) {
             String[] partes = new String[3];
@@ -108,13 +126,18 @@ public class Venta {
         }
     }
 
-
+    /**
+     * Elegir cada una de las caracteristicas del pedido
+     */
     public static void hacerPedido(){
         elegirTipo();
         elegirTalla();
         elegirEstampado();
     }
 
+    /**
+     * El usuario selecciona el tipo
+     */
     public static void elegirTipo() {
         System.out.println("Eliga el tipo");
         String[] menuTipo={"Algodón", "polyester", "spandex"};
@@ -122,6 +145,10 @@ public class Venta {
         int opcion = recibirOpcion(menuTipo.length);
         pedidos.add(menuTipo[opcion-1]);
     }
+
+    /**
+     * El usuario selecciona la talla
+     */
     public static void elegirTalla(){
         System.out.println("Eliga la talla");
         String[] menuTalla={"S","M","L","XL"};
@@ -130,6 +157,10 @@ public class Venta {
         int ultimo=pedidos.size()-1;
         pedidos.set(ultimo,pedidos.get(ultimo)+","+menuTalla[opcion-1]);
     }
+
+    /**
+     * El usuario selecciona estampado
+     */
     public static void elegirEstampado(){
         System.out.println("Estampado?");
         String[] menuEstampado={"Si","No"};
@@ -139,13 +170,19 @@ public class Venta {
         pedidos.set(ultimo,pedidos.get(ultimo)+","+menuEstampado[opcion-1]);
     }
 
+    /**
+     * Muestra un menu
+     * @param menu lista de elementos del menu
+     */
     public static  void mostrarMenu(String[] menu){
         for(int i =0;i<menu.length;i++){
             System.out.println("["+(i+1)+"] "+menu[i]);
         }
     }
 
-
+    /**
+     * Intenta eliminar un pedido y captura excepciones
+     */
     public static  void eliminarPedido(){
         try{
             tratarEliminar();
@@ -162,6 +199,12 @@ public class Venta {
         }
 
     }
+
+    /**
+     * Elimina el pedido elegido por el ususario
+     * @throws InputMismatchException si el ususario no ingresa un numero
+     * @throws IndexOutOfBoundsException si el usuario ingresa un elemento que no existe
+     */
     public static void tratarEliminar()throws InputMismatchException, IndexOutOfBoundsException{
         if(pedidos.size()!=0) {
             int eliminando = elegirEliminar();
@@ -169,6 +212,12 @@ public class Venta {
         }
         else{System.out.println("No hay pedidos!");}
     }
+
+    /**
+     * El usuario elige el pedido a eliminar
+     * @return numero del pedido a eliminar
+     * @throws InputMismatchException si el usuario no ingresa un numero
+     */
     public static int elegirEliminar()throws InputMismatchException{
         int elegido;
         Scanner scan = new Scanner(System.in);
@@ -177,10 +226,4 @@ public class Venta {
         elegido=scan.nextInt();
         return elegido;
     }
-
-
-
-
-
-
 }
